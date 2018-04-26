@@ -8,8 +8,24 @@ using WeddingFolderAPI.Models;
 
 namespace WeddingFolderAPI.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<AppUser>
     {
+
+        public DbSet<Couple> Couple{ get; set; }
+        public DbSet<Budget> Budget { get; set; }
+        public DbSet<PlanningFolder> PlanningFolder { get; set; }
+        public DbSet<BudgetItem> BudgetItem { get; set; }
+        public DbSet<Guest> Guest { get; set; }
+        public DbSet<GuestList> GuestList { get; set; }
+        public DbSet<Location> Location { get; set; }
+        public DbSet<SeatingPlan> SeatingPlan { get; set; }
+        public DbSet<ToDoItem> ToDoItem { get; set; }
+        public DbSet<ToDoList> ToDoList { get; set; }
+        public DbSet<Vendor> Vendor { get; set; }
+        public DbSet<Wish> Wish { get; set; }
+        public DbSet<Wishlist> Wishlist { get; set; }
+        public DbSet<ActualUser> ActualUsers { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

@@ -5,11 +5,24 @@
     <UserSecretsId>aspnet-WeddingFolderAPI-0128EBAA-23E1-40DF-8C5D-F94D4F13A54F</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20180319105451_initial12.cs" />
+    <Compile Remove="Data\Migrations\20180319105451_initial12.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180319143502_updated.cs" />
+    <Compile Remove="Data\Migrations\20180319143502_updated.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180320103218_mightdosmth.cs" />
+    <Compile Remove="Data\Migrations\20180320103218_mightdosmth.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.2.2" />
+    <PackageReference Include="Fluentvalidation.AspNetCore" Version="7.5.2" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" PrivateAssets="All" />
+    <PackageReference Include="mongocsharpdriver" Version="2.5.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.5.0" />
   </ItemGroup>
 
   <ItemGroup>

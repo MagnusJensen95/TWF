@@ -3,17 +3,17 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:23419/",
-      "sslPort": 44314
+      "applicationUrl": "http://localhost:5000/",
+      "sslPort": 0
     }
   },
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "https://localhost:44314/",
+      "launchUrl": "api/Couples",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "Hosting:Environment": "Development"
       }
     },
     "WeddingFolderAPI": {
@@ -22,7 +22,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:23420/"
+      "applicationUrl": "http://localhost:5000/"
     }
   }
 }

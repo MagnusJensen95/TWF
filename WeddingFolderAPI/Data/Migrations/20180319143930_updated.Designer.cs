@@ -11,9 +11,10 @@ using WeddingFolderAPI.Data;
 namespace WeddingFolderAPI.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180319143930_updated")]
+    partial class updated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,27 +129,7 @@ namespace WeddingFolderAPI.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("WeddingFolderAPI.Models.ActualUser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Gender");
-
-                    b.Property<string>("IdentityId");
-
-                    b.Property<string>("Locale");
-
-                    b.Property<string>("Location");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdentityId");
-
-                    b.ToTable("ActualUsers");
-                });
-
-            modelBuilder.Entity("WeddingFolderAPI.Models.AppUser", b =>
+            modelBuilder.Entity("WeddingFolderAPI.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -162,12 +143,6 @@ namespace WeddingFolderAPI.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
-
-                    b.Property<long?>("FacebookId");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -184,8 +159,6 @@ namespace WeddingFolderAPI.Data.Migrations
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<string>("PictureUrl");
 
                     b.Property<string>("SecurityStamp");
 
@@ -339,11 +312,13 @@ namespace WeddingFolderAPI.Data.Migrations
 
                     b.Property<int>("CoupleId");
 
-                    b.Property<int>("GuestListId");
+                    b.Property<int?>("GuestListId");
 
                     b.Property<int>("PlanningFolderId");
 
                     b.HasKey("SeatingPlanId");
+
+                    b.HasIndex("GuestListId");
 
                     b.HasIndex("PlanningFolderId")
                         .IsUnique();
@@ -356,15 +331,17 @@ namespace WeddingFolderAPI.Data.Migrations
                     b.Property<int>("ToDoItemId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("GuestId");
-
                     b.Property<int>("Priority");
+
+                    b.Property<int?>("ResponsibleGuestId");
 
                     b.Property<string>("Task");
 
                     b.Property<int?>("ToDoListId");
 
                     b.HasKey("ToDoItemId");
+
+                    b.HasIndex("ResponsibleGuestId");
 
                     b.HasIndex("ToDoListId");
 
@@ -453,7 +430,7 @@ namespace WeddingFolderAPI.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("WeddingFolderAPI.Models.AppUser")
+                    b.HasOne("WeddingFolderAPI.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -461,7 +438,7 @@ namespace WeddingFolderAPI.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("WeddingFolderAPI.Models.AppUser")
+                    b.HasOne("WeddingFolderAPI.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -474,7 +451,7 @@ namespace WeddingFolderAPI.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("WeddingFolderAPI.Models.AppUser")
+                    b.HasOne("WeddingFolderAPI.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -482,22 +459,15 @@ namespace WeddingFolderAPI.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("WeddingFolderAPI.Models.AppUser")
+                    b.HasOne("WeddingFolderAPI.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("WeddingFolderAPI.Models.ActualUser", b =>
-                {
-                    b.HasOne("WeddingFolderAPI.Models.AppUser", "Identity")
-                        .WithMany()
-                        .HasForeignKey("IdentityId");
-                });
-
             modelBuilder.Entity("WeddingFolderAPI.Models.Budget", b =>
                 {
-                    b.HasOne("WeddingFolderAPI.Models.PlanningFolder")
+                    b.HasOne("WeddingFolderAPI.Models.PlanningFolder", "PlanningFolder")
                         .WithOne("Budget")
                         .HasForeignKey("WeddingFolderAPI.Models.Budget", "PlanningFolderId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -505,7 +475,7 @@ namespace WeddingFolderAPI.Data.Migrations
 
             modelBuilder.Entity("WeddingFolderAPI.Models.BudgetItem", b =>
                 {
-                    b.HasOne("WeddingFolderAPI.Models.Budget")
+                    b.HasOne("WeddingFolderAPI.Models.Budget", "Budget")
                         .WithMany("Items")
                         .HasForeignKey("BudgetId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -520,7 +490,7 @@ namespace WeddingFolderAPI.Data.Migrations
 
             modelBuilder.Entity("WeddingFolderAPI.Models.GuestList", b =>
                 {
-                    b.HasOne("WeddingFolderAPI.Models.PlanningFolder")
+                    b.HasOne("WeddingFolderAPI.Models.PlanningFolder", "PlanningFolder")
                         .WithOne("GuestList")
                         .HasForeignKey("WeddingFolderAPI.Models.GuestList", "PlanningFolderId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -528,7 +498,7 @@ namespace WeddingFolderAPI.Data.Migrations
 
             modelBuilder.Entity("WeddingFolderAPI.Models.Location", b =>
                 {
-                    b.HasOne("WeddingFolderAPI.Models.PlanningFolder")
+                    b.HasOne("WeddingFolderAPI.Models.PlanningFolder", "PlanningFolder")
                         .WithOne("Location")
                         .HasForeignKey("WeddingFolderAPI.Models.Location", "PlanningFolderId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -536,7 +506,7 @@ namespace WeddingFolderAPI.Data.Migrations
 
             modelBuilder.Entity("WeddingFolderAPI.Models.PlanningFolder", b =>
                 {
-                    b.HasOne("WeddingFolderAPI.Models.Couple")
+                    b.HasOne("WeddingFolderAPI.Models.Couple", "Couple")
                         .WithMany("PlanningFolders")
                         .HasForeignKey("CoupleId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -544,7 +514,11 @@ namespace WeddingFolderAPI.Data.Migrations
 
             modelBuilder.Entity("WeddingFolderAPI.Models.SeatingPlan", b =>
                 {
-                    b.HasOne("WeddingFolderAPI.Models.PlanningFolder")
+                    b.HasOne("WeddingFolderAPI.Models.GuestList", "GuestList")
+                        .WithMany()
+                        .HasForeignKey("GuestListId");
+
+                    b.HasOne("WeddingFolderAPI.Models.PlanningFolder", "PlanningFolder")
                         .WithOne("SeatingPlan")
                         .HasForeignKey("WeddingFolderAPI.Models.SeatingPlan", "PlanningFolderId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -552,6 +526,10 @@ namespace WeddingFolderAPI.Data.Migrations
 
             modelBuilder.Entity("WeddingFolderAPI.Models.ToDoItem", b =>
                 {
+                    b.HasOne("WeddingFolderAPI.Models.Guest", "Responsible")
+                        .WithMany()
+                        .HasForeignKey("ResponsibleGuestId");
+
                     b.HasOne("WeddingFolderAPI.Models.ToDoList")
                         .WithMany("Items")
                         .HasForeignKey("ToDoListId");
@@ -559,7 +537,7 @@ namespace WeddingFolderAPI.Data.Migrations
 
             modelBuilder.Entity("WeddingFolderAPI.Models.ToDoList", b =>
                 {
-                    b.HasOne("WeddingFolderAPI.Models.PlanningFolder")
+                    b.HasOne("WeddingFolderAPI.Models.PlanningFolder", "PlanningFolder")
                         .WithOne("ToDoList")
                         .HasForeignKey("WeddingFolderAPI.Models.ToDoList", "PlanningFolderId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -567,7 +545,7 @@ namespace WeddingFolderAPI.Data.Migrations
 
             modelBuilder.Entity("WeddingFolderAPI.Models.Vendor", b =>
                 {
-                    b.HasOne("WeddingFolderAPI.Models.PlanningFolder")
+                    b.HasOne("WeddingFolderAPI.Models.PlanningFolder", "PlanningFolder")
                         .WithMany("Vendors")
                         .HasForeignKey("PlanningFolderId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -582,7 +560,7 @@ namespace WeddingFolderAPI.Data.Migrations
 
             modelBuilder.Entity("WeddingFolderAPI.Models.Wishlist", b =>
                 {
-                    b.HasOne("WeddingFolderAPI.Models.PlanningFolder")
+                    b.HasOne("WeddingFolderAPI.Models.PlanningFolder", "PlanningFolder")
                         .WithOne("WishList")
                         .HasForeignKey("WeddingFolderAPI.Models.Wishlist", "PlanningFolderId")
                         .OnDelete(DeleteBehavior.Cascade);

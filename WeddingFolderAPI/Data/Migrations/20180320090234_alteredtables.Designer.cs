@@ -11,9 +11,10 @@ using WeddingFolderAPI.Data;
 namespace WeddingFolderAPI.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180320090234_alteredtables")]
+    partial class alteredtables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,27 +129,7 @@ namespace WeddingFolderAPI.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("WeddingFolderAPI.Models.ActualUser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Gender");
-
-                    b.Property<string>("IdentityId");
-
-                    b.Property<string>("Locale");
-
-                    b.Property<string>("Location");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdentityId");
-
-                    b.ToTable("ActualUsers");
-                });
-
-            modelBuilder.Entity("WeddingFolderAPI.Models.AppUser", b =>
+            modelBuilder.Entity("WeddingFolderAPI.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -162,12 +143,6 @@ namespace WeddingFolderAPI.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
-
-                    b.Property<long?>("FacebookId");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -184,8 +159,6 @@ namespace WeddingFolderAPI.Data.Migrations
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<string>("PictureUrl");
 
                     b.Property<string>("SecurityStamp");
 
@@ -453,7 +426,7 @@ namespace WeddingFolderAPI.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("WeddingFolderAPI.Models.AppUser")
+                    b.HasOne("WeddingFolderAPI.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -461,7 +434,7 @@ namespace WeddingFolderAPI.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("WeddingFolderAPI.Models.AppUser")
+                    b.HasOne("WeddingFolderAPI.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -474,7 +447,7 @@ namespace WeddingFolderAPI.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("WeddingFolderAPI.Models.AppUser")
+                    b.HasOne("WeddingFolderAPI.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -482,17 +455,10 @@ namespace WeddingFolderAPI.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("WeddingFolderAPI.Models.AppUser")
+                    b.HasOne("WeddingFolderAPI.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WeddingFolderAPI.Models.ActualUser", b =>
-                {
-                    b.HasOne("WeddingFolderAPI.Models.AppUser", "Identity")
-                        .WithMany()
-                        .HasForeignKey("IdentityId");
                 });
 
             modelBuilder.Entity("WeddingFolderAPI.Models.Budget", b =>
